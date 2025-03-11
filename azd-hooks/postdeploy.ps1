@@ -203,7 +203,8 @@ if ($env:DEPLOY_AML_MODEL -eq $False) {
 } else {
     Write-Host "Deploying Machine Learning Model to Azure ML Workspace..."
 
-    & "$PSScriptRoot/../scripts/aml/deploy_model.ps1" -ErrorAction Stop
+    #& "$PSScriptRoot/../scripts/aml/deploy_model.ps1" -ErrorAction Stop
+    & "$PSScriptRoot/../scripts/aml/deploy_model_msmarco.ps1" -ErrorAction Stop
    
     Write-Host "Machine Learning Model Deployed"
 }
