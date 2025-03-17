@@ -23,7 +23,7 @@ def init():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Get model directory from Azure ML env variable
-    model_dir = os.path.join(os.getenv("AZUREML_MODEL_DIR"), "model")
+    model_dir = os.path.join(os.getenv("AZUREML_MODEL_DIR"), "model-mini")
 
     # Load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained(model_dir)

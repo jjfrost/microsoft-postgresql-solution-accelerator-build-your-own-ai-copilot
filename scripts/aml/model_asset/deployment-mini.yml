@@ -2,14 +2,14 @@ $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.sch
 name: msmarco-minilm-deployment-6
 endpoint_name: rerankeramlws-endpt
 model:
-  path: ./model/
+  path: ./model-mini/
 code_configuration:
   code: ./scoring/
-  scoring_script: score_msmarco_aml.py
+  scoring_script: score_mini_aml.py
 environment:
   name: msmarco-env-6
   build: 
-    path: ./environment-msmarco/
+    path: ./environment-mini/
 instance_type: STANDARD_D4AS_V4
 instance_count: 1
 request_settings:

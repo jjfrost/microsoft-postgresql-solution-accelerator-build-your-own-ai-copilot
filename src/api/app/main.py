@@ -40,6 +40,7 @@ app.add_middleware(
 )
 
 # Add routers to API endpoints
+app.include_router(completions.router)
 app.include_router(deliverables.router)
 app.include_router(documents.router)
 app.include_router(embeddings.router)

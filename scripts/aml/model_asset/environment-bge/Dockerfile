@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/aifx/acpt/stable-ubuntu2004-cu121-py310-torch22x:biweekly
 
 # Install pip dependencies
 COPY requirements-slim.txt .
-RUN pip install -r requirements-slim.txt --no-cache-dir
+RUN pip install -r requirements.txt --no-cache-dir
 
 # Inference requirements
 COPY --from=mcr.microsoft.com/azureml/o16n-base/python-assets:20230419.v1 /artifacts /var/

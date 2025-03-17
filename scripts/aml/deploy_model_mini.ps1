@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 
 # Download model from Hugging Face
 Write-Output "Downloading cross-encoder/ms-marco-MiniLM-L-6-v2 model from Hugging Face.."
-$MODEL_DIR = "./scripts/aml/model_asset/model"
+$MODEL_DIR = "./scripts/aml/model_asset/model-mini"
 New-Item -ItemType Directory -Force -Path $MODEL_DIR
 
 $FILES = @(
@@ -39,5 +39,5 @@ Write-Output $env:AZURE_AML_WORKSPACE_NAME
 Write-Output "Endpoint:"
 Write-Output $env:AZURE_AML_ENDPOINT_NAME
 $DEPLOYMENT_NAME = "msmarco-minilm-deployment-6"
-$DEPLOYMENT_YML = "./scripts/aml/model_asset/deployment-msmarco.yml"
+$DEPLOYMENT_YML = "./scripts/aml/model_asset/deployment-mini.yml"
 az ml online-deployment create --name "$DEPLOYMENT_NAME" --endpoint "$env:AZURE_AML_ENDPOINT_NAME" -f "$DEPLOYMENT_YML" --all-traffic --resource-group "$env:AZURE_RESOURCE_GROUP" --workspace-name "$env:AZURE_AML_WORKSPACE_NAME"

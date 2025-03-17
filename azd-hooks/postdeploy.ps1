@@ -195,21 +195,18 @@ Write-Host "Sample Files Uploaded to Blob Storage"
 
 
 # ##############################################################################
-# Deploy Machine Learning Model to Azure ML Workspace
+# Deploy Chosen Cross Encoder Model to the Azure ML Workspace
 # ##############################################################################
 
-if ($env:DEPLOY_AML_MODEL -eq $False) {
-    Write-Host "Skipping Machine Learning Model Deployment"
-} else {
-    Write-Host "Deploying Machine Learning Model to Azure ML Workspace..."
+Write-Host "If a model was chosen, now deploying Cross Encoder Model to the Azure ML Workspace..."
+Write-Host "Chosen model is: $env:DEPLOY_AML_MODEL"
 
-    #& "$PSScriptRoot/../scripts/aml/deploy_model.ps1" -ErrorAction Stop
-    & "$PSScriptRoot/../scripts/aml/deploy_model_msmarco.ps1" -ErrorAction Stop
-   
-    Write-Host "Machine Learning Model Deployed"
+switch ($env:DEPLOY_AML_MODEL) {
+    "mini"  { & (Resolve-Path "$PSScriptRoot\..\scripts\aml\deploy_model_mini.ps1") -ErrorAction Stop }
+    "bge"   { & (Resolve-Path "$PSScriptRoot\..\scripts\aml\deploy_model_bge.ps1") -ErrorAction Stop }
+    "none"  { Write-Host "Skipping Semantic Re-ranker post-deployment script." }
+    default { Write-Error "Unknown DEPLOY_AML_MODEL value: $env:DEPLOY_AML_MODEL" }
 }
-
-
 
 # ##############################################################################
 # Update .env file to prevent postdeploy script from running again (this ensures that the script runs only once)
