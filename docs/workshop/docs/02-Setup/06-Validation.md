@@ -119,7 +119,7 @@ You will use the Azure AI Foundry portal to verify the `gpt-4o` and `text-embedd
 
 If you chose to deploy the Azure ML semantic ranker model during setup, you will use the Azure Machine Learning Studio to ensure the semantic ranker model was successfully deployed to an online endpoint.
 
-!!! warning "You only need to do this step if you chose TRUE for `deployAMLModel` during the `azd up` deployment. If you selected FALSE, skip this step."
+!!! warning "You only need to do this step if you chose `mini` or `bge` for `deployAMLModel` during the `azd up` deployment. If you selected `none`, skip this step."
 
 1. In the Azure portal, return to the resource group containing your resources and select the **Azure Machine Learning Workspace** resoure.
 
@@ -131,11 +131,11 @@ If you chose to deploy the Azure ML semantic ranker model during setup, you will
 
 3. Sign into Machine Learning Studio if prompted.
 
-4. In Machine Learning Studio, select **Endpoints** under **Assets** in the left-hand resource menu, then select the endpoint for your `bge-v2-m3-reranker model`:
+4. In Machine Learning Studio, select **Endpoints** under **Assets** in the left-hand resource menu, then select the endpoint for your (`bge-v2-m3-reranker model` or `msmarco-minilm-deployment-6 model`):
 
     ![Screenshot of the Endpoints page in Azure Machine Learning Studio, with the Endpoints menu item highlighted and the reranker model endpoint highlighted.](../img/aml-studio-endpoints.png)
 
-5. On your endpoint page, ensure the **Provisioning state** for the _bgev2m3-v1_ deployment is **Succeeded**.
+5. On your endpoint page, ensure the **Provisioning state** for the (_bgev2m3-v1_ or _msmarco-minilm-deployment-6_) deployment is **Succeeded**.
 
     ![Screenshot of the semantic ranker model deployment in Azure ML Studio, with the model's provisioning state of Succeded highlighted.](../img/aml-studio-endpoints-model-deployment-succeeded.png)
 
