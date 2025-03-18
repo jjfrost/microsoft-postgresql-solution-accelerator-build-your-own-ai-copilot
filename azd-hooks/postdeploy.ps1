@@ -195,23 +195,41 @@ Write-Host "Sample Files Uploaded to Blob Storage"
 
 
 # ##############################################################################
-# Deploy Machine Learning Model to Azure ML Workspace
+# Deploy Chosen Cross Encoder Model to the Azure ML Workspace
 # ##############################################################################
 
-if ($env:DEPLOY_AML_MODEL -eq $False) {
-    Write-Host "Skipping Machine Learning Model Deployment"
-} else {
-    Write-Host "Deploying Machine Learning Model to Azure ML Workspace..."
+# Capture start time of model deploy
+$startTime = [datetime]::Now
+Write-Host "Model Deploy Start Time: $startTime"
 
-    & "$PSScriptRoot/../scripts/aml/deploy_model.ps1" -ErrorAction Stop
-   
-    Write-Host "Machine Learning Model Deployed"
+Write-Host "If a model was chosen, now deploying Cross Encoder Model to the Azure ML Workspace..."
+Write-Host "Chosen model is: $env:DEPLOY_AML_MODEL"
+
+switch ($env:DEPLOY_AML_MODEL) {
+    "mini"  { & (Resolve-Path "$PSScriptRoot\..\scripts\aml\deploy_model_mini.ps1") -ErrorAction Stop }
+    "bge"   { & (Resolve-Path "$PSScriptRoot\..\scripts\aml\deploy_model_bge.ps1") -ErrorAction Stop }
+    "none"  { Write-Host "Skipping Semantic Re-ranker post-deployment script." }
+    default { Write-Error "Unknown DEPLOY_AML_MODEL value: $env:DEPLOY_AML_MODEL" }
 }
 
+# Capture end time of model deploy and calculate duration
+$endTime = [datetime]::Now
+$duration = $endTime - $startTime
 
+# Write out the duration of the model deploy
+Write-Host "Model Deploy End Time: $endTime"
+Write-Host ("Model Deploy Total Duration: {0} hours {1} minutes {2} seconds" -f $duration.Hours, $duration.Minutes, $duration.Seconds)
 
 # ##############################################################################
 # Update .env file to prevent postdeploy script from running again (this ensures that the script runs only once)
 # ##############################################################################
 
 azd env set "RUN_POSTDEPLOY_SCRIPT" "false"
+
+# ##############################################################################
+# Write completion message
+# ##############################################################################
+
+Write-Host "***"
+Write-Host "Deployment Completed! Please read the docs at https://aka.ms/pg-byoac-docs for next steps."
+Write-Host "***"

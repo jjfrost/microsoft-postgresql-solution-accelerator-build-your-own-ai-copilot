@@ -19,8 +19,13 @@ param principalType string = 'User'
 @description('Name of the PostgreSQL database')
 param postgresqlDatabaseName string = 'contracts'
 
-@description('Determines whether to deploy the Azure Machine Learning model used for Semantic Reranking')
-param deployAMLModel bool
+@description('Determines what model to deploy to the Azure Machine Learning workspace used for Semantic Re-ranking')
+@allowed([
+  'mini'
+  'bge'
+  'none'
+])
+param deployAMLModel string
 
 @description('Determines whether to deploy the OpenAI models')
 param deployOpenAIModels bool = true // default to true
@@ -343,7 +348,7 @@ module languageService './shared/language-service.bicep' = {
   scope: rg
 }
 
-module amlWorkspace './shared/aml-workspace.bicep' = if (deployAMLModel) {
+module amlWorkspace './shared/aml-workspace.bicep' = if (deployAMLModel != 'none') {
   name: 'amlWorkspace'
   params: {
     location: location
@@ -375,9 +380,9 @@ output POSTGRESQL_DATABASE_NAME string = postgresqlDatabaseName
 output AZURE_OPENAI_ENDPOINT string = openAi.outputs.endpoint
 output AZURE_OPENAI_KEY string = openAi.outputs.key
 
-output DEPLOY_AML_MODEL bool = deployAMLModel
-output AZURE_AML_WORKSPACE_NAME string = deployAMLModel ? amlWorkspace.outputs.AML_WORKSPACE_NAME : ''
-output AZURE_AML_ENDPOINT_NAME string = deployAMLModel ? amlWorkspace.outputs.AML_ENDPOINT_NAME : ''
+output DEPLOY_AML_MODEL string = deployAMLModel
+output AZURE_AML_WORKSPACE_NAME string = (deployAMLModel != 'none') ? amlWorkspace.outputs.AML_WORKSPACE_NAME : ''
+output AZURE_AML_ENDPOINT_NAME string = (deployAMLModel != 'none') ? amlWorkspace.outputs.AML_ENDPOINT_NAME : ''
 
 output SERVICE_API_IDENTITY_PRINCIPAL_NAME string = apiApp.outputs.identityPrincipalName
 

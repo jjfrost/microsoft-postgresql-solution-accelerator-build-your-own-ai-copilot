@@ -1,0 +1,16 @@
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+name: bgev2m3-v1
+endpoint_name: rerankeramlws-endpt
+model:
+  path: ./model-bge/
+code_configuration:
+  code: ./scoring/
+  scoring_script: score_bge_aml.py
+environment:
+  name: bgev2m3-env 
+  build: 
+    path: ./environment-bge/
+instance_type: STANDARD_D16AS_V4
+instance_count: 1
+request_settings:
+    request_timeout_ms: 120000    

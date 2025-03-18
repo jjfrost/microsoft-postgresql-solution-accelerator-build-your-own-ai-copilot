@@ -36,21 +36,21 @@ This solution accelerator contains a section dedicated to setting up and using a
 
     ![On the subscription quota page for the selected region, the Standard DASv4 Family Cluster Dedicated vCPUs items is highlighted and the available quota is highlighted.](../img/azure-ml-quota-standard-dasv4.png)
 
-8. If you have 32 cores or more available, then you do not need to request a quota increase. Otherwise, select the **Standard DASv4 Family Cluster Dedicated vCPUs** by checking the box to the left of the name, then scroll up to the top of the page and locate the **Request quota** button.
+8. If you have (4 cores for the mini model, or 16 cores for the bge model) or more available, then you do not need to request a quota increase. Otherwise, select the **Standard DASv4 Family Cluster Dedicated vCPUs** by checking the box to the left of the name, then scroll up to the top of the page and locate the **Request quota** button.
 
     ![Screenshot of the Azure ML quota page with the Request quota button highlighted with a red box.](../img/azure-ml-request-quota.png)
 
-9. In the **Request quota** dialog, increase your **New cores limit** value by 32 and then select **Submit**.
+9. In the **Request quota** dialog, increase your **New cores limit** value by (4 or 16) and then select **Submit**.
 
     ![Screenshot of the Request quota dialog with a value of 32 highlighted in the new cores limit box and the submit button highlighted.](../img/azure-ml-request-quota-dialog.png)
 
     !!! example "Quota increase example"
 
-        Your **new cores limit** should be increased to ensure 32 cores are available for a new deployment. For example, if you have zero cores available, your new cores limit should be set to 32. If your core limit is 100 and you are currently using 90, your new cores limit should be set to 122.
+        Your **new cores limit** should be increased to ensure (4 or 16) cores are available for a new deployment. For example, if you have zero cores available, your new cores limit should be set to (4 or 16). If your core limit is 100 and you are currently using 90, your new cores limit should be set to (94 or 106).
 
 10. Quota increase requests typically take a few minutes to complete. You will receive notifications in the Azure portal as the request is processed and when it completes.
 
-11. If your request is denied, you don't have permissions to issue the request, or you prefer not to request additional quota, you have the option to exclude the **Semantic Ranking** model deployment when running the `azd up` command by setting the `deployAMLModel` flag to `false` when prompted.
+11. If your request is denied, you don't have permissions to issue the request, or you prefer not to request additional quota, you have the option to exclude the **Semantic Ranking** model deployment when running the `azd up` command by setting the `deployAMLModel` flag to `none` when prompted.
 
 ## Verify Azure Resource Providers
 

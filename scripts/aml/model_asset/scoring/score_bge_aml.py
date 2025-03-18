@@ -19,8 +19,8 @@ def init():
     # Please provide your model's folder name if there is one
     #
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model_path = os.path.join(os.getenv("AZUREML_MODEL_DIR"), "model")
-    tokenizer_path = os.path.join(os.getenv("AZUREML_MODEL_DIR"),  "model")
+    model_path = os.path.join(os.getenv("AZUREML_MODEL_DIR"), "model-bge")
+    tokenizer_path = os.path.join(os.getenv("AZUREML_MODEL_DIR"),  "model-bge")
     
     # deserialize the model file back into a sklearn model
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_path)
